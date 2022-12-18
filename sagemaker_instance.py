@@ -96,9 +96,8 @@ def wait_until_running(instance_name,rn):
         if response["NotebookInstanceStatus"] == "InService":
             return print("Notebook in service")
         time.sleep(5)
-# Start
 
-print("\n------------------- SETTING UP THE SYSTEM ----------------------\n")
+print("------------------- SETTING UP THE SYSTEM ----------------------")
 
 print("Retrieving role Arn from IAM role...")
 role_arn = response['Role']['Arn']
@@ -118,7 +117,6 @@ print("Sagemaker instance created!\n")
 print("Waiting for the Sagemaker instance to get in the running state...This action takes few minutes to complete. Be patient !")
 wait_until_running(instance_name=instance_name, rn=AWS_REGION)
 print("Notebook instance is running!. UPLOAD THE CODE TO SAGEMAKER")
-
 
 answer = 'NO'
 while (answer == 'NO'):

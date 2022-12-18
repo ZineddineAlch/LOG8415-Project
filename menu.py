@@ -5,6 +5,7 @@ import sys
 print('------------ Delete lambda function----------------')
 client = boto3.client('lambda')
 client.delete_function(FunctionName='lambdafunctprojet1')
+'''
 print('------------ Delete API Gateway----------------')
 with open('api_id_store.txt') as f:
     URL = f.readlines()
@@ -13,6 +14,7 @@ response = client.delete_rest_api(
     restApiId=URL[0]
 )
 
+'''
 print('------------ Delete IAM Role----------------')
 client = boto3.client('iam')
 response = client.delete_role(
@@ -57,7 +59,7 @@ client = boto3.client('sagemaker')
 response = client.delete_notebook_instance(NotebookInstanceName='project')
 '''
 
-
+'''
 # Specify your AWS Region
 aws_region='us-east-1'
 
@@ -70,7 +72,7 @@ sagemaker_client = boto3.client('sagemaker', region_name=aws_region)
 # Delete endpoint
 sagemaker_client.delete_endpoint(EndpointName=endpoint_name)
 
-
+'''
 '''
 def shutdown_system(instances_ids):
     """
