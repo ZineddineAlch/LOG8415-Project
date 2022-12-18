@@ -1,1 +1,0 @@
-https://h0dsqrh2r9.execute-api.us-east-1.amazonaws.com/dev/Resource
