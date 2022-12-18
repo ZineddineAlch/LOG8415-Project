@@ -1,6 +1,6 @@
 import json
 import boto3
-
+import time
 role_name = 'roleprojectlambda'
 
 assume_policy = json.dumps(
@@ -55,3 +55,4 @@ response6= client.attach_role_policy(
 
 print('-------------------Role policy added--------------')
 
+time.sleep(10)
