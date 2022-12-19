@@ -20,15 +20,15 @@ assume_policy = json.dumps(
 
 
 client = boto3.client('iam')
-print('-------------------Create role--------------')
+print('--------------SageMakerCreate role--------------')
 
 response = client.create_role(
     RoleName=role_name,
     AssumeRolePolicyDocument=assume_policy)
 
-print('------------------Role created--------------')
+print('Role created...')
 
-print('-------------------Add role policy--------------')
+print('-------------------Add role policies--------------')
 
 response2 = client.attach_role_policy(
     RoleName=role_name,
@@ -46,4 +46,4 @@ response5= client.attach_role_policy(
     RoleName=role_name,
     PolicyArn='arn:aws:iam::aws:policy/service-role/AWSLambdaRole'
 )
-print('-------------------Role policy added--------------')
+print('Role policies added...')

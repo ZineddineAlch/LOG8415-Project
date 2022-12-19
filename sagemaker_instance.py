@@ -1,6 +1,6 @@
 import boto3
 import time
-
+import webbrowser
 AWS_REGION = 'us-east-1'
 instance_type = 'ml.t2.medium'
 instance_name = 'project'
@@ -97,7 +97,18 @@ def wait_until_running(instance_name,rn):
             return print("Notebook in service")
         time.sleep(5)
 
-print("------------------- SETTING UP THE SYSTEM ----------------------")
+def open_notebook(instance_name):
+
+    client = boto3.client('sagemaker')
+    response = client.create_presigned_notebook_instance_url(
+        NotebookInstanceName=instance_name
+    )
+    webbrowser.open(response['AuthorizedUrl'])
+    time.sleep(10)
+
+
+
+print("------------------- Creating SageMaker instance ----------------------")
 
 print("Retrieving role Arn from IAM role...")
 role_arn = response['Role']['Arn']
@@ -112,13 +123,19 @@ print("Security group created!\n")
 
 print("Creating the Sagemaker instance type ml.t2.medium ...")
 create_notebook_instance(instance_name=instance_name, instance_type=instance_type, subnet_id=subnet_id, sg=sg_id, rn=AWS_REGION, role_arn=role_arn)
-print("Sagemaker instance created!\n")
+print("Sagemaker instance created...\n")
 
 print("Waiting for the Sagemaker instance to get in the running state...This action takes few minutes to complete. Be patient !")
 wait_until_running(instance_name=instance_name, rn=AWS_REGION)
 print("Notebook instance is running!. UPLOAD THE CODE TO SAGEMAKER")
 
+print("Opening SageMaker Notebook...")
+open_notebook(instance_name)
+print("SageMaker Notebook opened...")
+
 answer = 'NO'
 while (answer == 'NO'):
     answer = input("Did you UPLOAD and RUN Notebook ?  YES or NO   ")
     time.sleep(10)
+
+

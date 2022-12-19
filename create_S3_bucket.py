@@ -1,6 +1,7 @@
 import logging
 import boto3
 from botocore.exceptions import ClientError
+import time
 import os
 
 bucket_name = 'sagemaker-projecttp3'  # The name must start with lowercase letter
@@ -54,8 +55,9 @@ def upload_file(file_name, bucket, object_name=None):
     return True
 
 
-print("Creating S3 bucket...")
+print("---------------- Creating S3 bucket and upload dataset----------------")
 create_bucket(bucket_name=bucket_name, region=None) # The name of bucket should start with lowercase letter
 print("Uploading dataset to S3 bucket...")
 upload_file('data.csv', bucket_name)
-
+time.sleep(10)
+print("Dataset uploaded...")

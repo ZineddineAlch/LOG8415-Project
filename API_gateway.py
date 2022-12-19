@@ -115,17 +115,21 @@ api_id = create_rest_api(api_name)
 with open('api_id_store.txt', 'w') as f:
     f.write(api_id)
 f.close()
-print('----------------------Create Resource---------------------')
+
 D = create_resource(api_id)
-print('----------------------Create method---------------------')
+
 create_put_method(api_id,D)
 create_put_method_response(api_id,D)
-print('----------------------Create integration---------------')
+
 create_put_integration(api_id,D)
 create_put_integration_response(api_id,D)
-print('----------------------Deploy API---------------')
+time.sleep(10)
+print('REST API created...')
+print('---------------Deploy REST API---------------')
 api_url = deploy_api(stage_name="dev",api_id=api_id)
 
 with open('api_url_store.txt', 'w') as f:
     f.write(api_url)
 f.close()
+time.sleep(10)
+print('REST API deployed...')

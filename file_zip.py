@@ -8,7 +8,7 @@ with ZipFile('lambda.zip', 'w') as zip_object:
    zip_object.write('handler.py')
 
 # Check to see if the zip file is created
-if os.path.exists('Zipped file.zip'):
-   print("ZIP file created")
+if os.path.exists('lambda.zip'):
+   print("ZIP file for lambda function created...")
 else:
-   print("ZIP file not created")
+   print("ZIP file not created...")

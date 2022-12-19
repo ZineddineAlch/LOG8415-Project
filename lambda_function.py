@@ -1,3 +1,4 @@
+import time
 import boto3
 iam_client = boto3.client('iam')
 lambda_client = boto3.client('lambda')
@@ -18,7 +19,7 @@ response = lambda_client.create_function(
     Code=dict(ZipFile=zipped_code),
     Timeout=300,  # Maximum allowable timeout
 )
-
-print('----------------Lambda function created--------------')
+time.sleep(10)
+print('Lambda function created...')
 
 
