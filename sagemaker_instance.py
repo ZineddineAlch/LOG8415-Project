@@ -136,6 +136,6 @@ print("SageMaker Notebook opened...")
 answer = 'NO'
 while (answer == 'NO'):
     answer = input("Did you UPLOAD and RUN Notebook ?  YES or NO   ")
-    time.sleep(10)
+    time.sleep(15)
 
 
