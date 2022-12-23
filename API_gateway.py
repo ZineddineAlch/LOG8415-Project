@@ -2,16 +2,17 @@ import time
 import boto3
 import logging
 from botocore.exceptions import ClientError
+
 logger = logging.getLogger(__name__)
 client = boto3.client('apigateway')
 
 def get_account_id():
     """
-    Function to get AWS account id
+    Function to get AWS account id.
+    return: account id.
     """
     client = boto3.client("sts")
     return client.get_caller_identity()["Account"]
-
 
 def create_rest_api(api_name):
     """
@@ -28,41 +29,57 @@ def create_rest_api(api_name):
         }
     )
     return response["id"]
-
 def create_resource(api_id):
-
+    """
+    Function that create resource for API.
+    api_id : id of the REST API created
+    return: the resource informations (dict)
+    """
     client = boto3.client('apigateway')
     resources = client.get_resources(restApiId=api_id)
 
     root_id = [resource for resource in resources["items"] if resource["path"] == "/"][0]["id"]
 
-    D=client.create_resource(restApiId=api_id, parentId=root_id, pathPart="Resource")
-    return D
+    resource_created = client.create_resource(restApiId=api_id, parentId=root_id, pathPart="Resource")
+    return resource_created
 
-def create_put_method(api_id,D):
+def create_put_method(api_id,resource_created):
+    """
+    Function that put a methode for the API (POST)
+    api_id = API id
+    resource_created: the resource created by the function create_resource
+    """
     client = boto3.client('apigateway')
     client.put_method(
     restApiId=api_id,
-    resourceId=D['id'],
+    resourceId=resource_created['id'],
     httpMethod="POST",
     authorizationType="none",
     requestParameters={"method.request.header.InvocationType": True}
     )
 
-def create_put_method_response(api_id,D):
+def create_put_method_response(api_id,resource_created):
+    """
+    Function that put a methode response for the API (POST)
+    api_id = API id
+    resource_created: the resource created by the function create_resource
+    """
     client = boto3.client('apigateway')
     client.put_method_response(
-        restApiId=api_id, resourceId=D['id'], httpMethod="POST", statusCode="200"
+        restApiId=api_id, resourceId=resource_created['id'], httpMethod="POST", statusCode="200"
     )
-
 time.sleep(10)
-
-def create_put_integration(api_id,D):
+def create_put_integration(api_id,resource_created):
+    """
+    Function that put an integration for the API type AWS
+    api_id = API id
+    resource_created: the resource created by the function create_resource
+    """
     client = boto3.client('apigateway')
 
     client.put_integration(
         restApiId=api_id,
-        resourceId=D['id'],
+        resourceId=resource_created['id'],
         httpMethod="POST",
         type='AWS',
         uri='arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:{}:function:lambdafunctprojet1/invocations'.format(account_id),
@@ -70,12 +87,17 @@ def create_put_integration(api_id,D):
         credentials="arn:aws:iam::{}:role/roleprojectlambda".format(account_id)
 
     )
-def create_put_integration_response(api_id,D):
+def create_put_integration_response(api_id,resource_created):
+    """
+    Function that put an integration response for the API.
+    api_id = API id
+    resource_created: the resource created by the function create_resource
+    """
     client = boto3.client('apigateway')
 
     client.put_integration_response(
         restApiId=api_id,
-        resourceId=D['id'],
+        resourceId=resource_created['id'],
         httpMethod='POST',
         statusCode="200",
         responseTemplates={}
@@ -85,9 +107,9 @@ stage_name = "dev"
 def deploy_api(stage_name,api_id):
     """
     Deploys a REST API. After a REST API is deployed, it can be called from any
-    REST client, such as the Python Requests package or Postman.
-    :param stage_name: The stage of the API to deploy, such as 'test'.
-    :return: The base URL of the deployed REST API.
+    REST client, such as the Python Requests package.
+    stage_name: The stage name of the API to deploy.
+    return: The base URL of the deployed REST API.
     """
     client = boto3.client("apigateway")
     try:
@@ -104,8 +126,8 @@ def deploy_api(stage_name,api_id):
 def api_url(stage_name=stage_name,resource=None):
     """
     Builds the REST API URL from its parts.
-    :param resource: The resource path to append to the base URL.
-    :return: The REST URL to the specified resource.
+    resource: The resource path to append to the base URL.
+    return: The REST URL to the specified resource.
     """
     client = boto3.client("apigateway")
     url = (f'https://{api_id}.execute-api.{client.meta.region_name}'
@@ -122,11 +144,11 @@ with open('api_id_store.txt', 'w') as f:
     f.write(api_id)
 f.close()
 
-D = create_resource(api_id)
-create_put_method(api_id,D)
-create_put_method_response(api_id,D)
-create_put_integration(api_id,D)
-create_put_integration_response(api_id,D)
+resource_created = create_resource(api_id)
+create_put_method(api_id, resource_created)
+create_put_method_response(api_id, resource_created)
+create_put_integration(api_id, resource_created)
+create_put_integration_response(api_id, resource_created)
 time.sleep(10)
 print('REST API created...')
 print('---------------Deploy REST API---------------')

@@ -1,7 +1,6 @@
 import os
 from zipfile import ZipFile
 
-
 # Create a ZipFile Object
 with ZipFile('lambda.zip', 'w') as zip_object:
    # Adding files that need to be zipped

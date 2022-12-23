@@ -5,7 +5,6 @@ import time
 import os
 
 bucket_name = 'sagemaker-projecttp3'  # The name must start with lowercase letter
-
 def create_bucket(bucket_name, region=None):
 
     """Create an S3 bucket in a specified region
@@ -36,7 +35,6 @@ def upload_file(file_name, bucket, object_name=None):
     object_name: S3 object name. If not specified then file_name is used
     return: True if file was uploaded, else False
     """
-
     # If S3 object_name was not specified, use file_name
     if object_name is None:
         object_name = os.path.basename(file_name)
@@ -49,7 +47,6 @@ def upload_file(file_name, bucket, object_name=None):
         logging.error(e)
         return False
     return True
-
 
 print("---------------- Creating S3 bucket and upload dataset----------------")
 create_bucket(bucket_name=bucket_name, region=None) # The name of bucket should start with lowercase letter

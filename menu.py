@@ -30,7 +30,10 @@ bucket.delete()
 
 def wait_until_stopping(instance_name,rn):
     """
-    This function waits for the notebook instance to become available.
+    This function waits for the notebook instance to be stopped.
+    instance_name: name of instance to be stopped.
+    rn: region name.
+
     """
     while (True):
         sm_client = boto3.client("sagemaker", region_name=rn)
@@ -43,7 +46,9 @@ def wait_until_stopping(instance_name,rn):
 
 def wait_until_deleting(instance_name,rn):
     """
-    This function waits for the notebook instance to become available.
+     This function waits for the notebook instance to be deleted.
+    instance_name: name of instance to be stopped.
+    rn: region name.
     """
     while (True):
         sm_client = boto3.client("sagemaker", region_name=rn)
@@ -56,13 +61,10 @@ def wait_until_deleting(instance_name,rn):
 
 
 print('------------ STOPPING Notebook instance ----------------')
-
 client = boto3.client('sagemaker')
 response = client.stop_notebook_instance(
-    NotebookInstanceName='project'
-)
+    NotebookInstanceName='project')
 wait_until_stopping(instance_name=instance_name, rn=AWS_REGION)
-
 print('Instance Notebook Stopped...')
 
 print('------------ DELETING Notebook instance----------------')
@@ -77,9 +79,7 @@ with open('api_id_store.txt') as f:
 
 client = boto3.client('apigateway')
 client.delete_rest_api(
-    restApiId=URL[0]
-)
-time.sleep(5)
+    restApiId=URL[0])
 print('API REST deleted...')
 
 

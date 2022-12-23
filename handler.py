@@ -1,9 +1,7 @@
-import os
-import io
 import boto3
 import json
-import csv
 
+# Retrieving of the endpoint
 client = boto3.client('sagemaker')
 response = client.list_endpoints(
     SortBy='Name',
@@ -13,9 +11,11 @@ response = client.list_endpoints(
 # grab environment variables
 ENDPOINT_NAME = response['Endpoints'][0]['EndpointName']
 runtime = boto3.client('runtime.sagemaker')
-
-
 def lambda_handler(event, context):
+    """
+    Function that calculate the prediction of the test data (requested data).
+    return: the predicted label
+    """
     print("Received event: " + json.dumps(event, indent=2))
 
     data = json.loads(json.dumps(event))
@@ -27,7 +27,6 @@ def lambda_handler(event, context):
                                        Body=payload)
 
     result = json.loads(response['Body'].read().decode())
-
     pred = int(result['predictions'][0]['score'])
     predicted_label = 'Malignant' if pred == 1 else 'Benign'
 

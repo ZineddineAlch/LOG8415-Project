@@ -2,6 +2,7 @@ import json
 import boto3
 
 role_name = 'roleprojectsagemaker'
+client = boto3.client('iam')
 
 assume_policy = json.dumps(
 {
@@ -18,8 +19,6 @@ assume_policy = json.dumps(
     ]
 })
 
-
-client = boto3.client('iam')
 print('--------------SageMakerCreate role--------------')
 
 response = client.create_role(
@@ -38,11 +37,11 @@ response3 = client.attach_role_policy(
     RoleName=role_name,
     PolicyArn='arn:aws:iam::aws:policy/AWSLambda_FullAccess'
 )
-response4= client.attach_role_policy(
+response4 = client.attach_role_policy(
     RoleName=role_name,
     PolicyArn='arn:aws:iam::aws:policy/AWSLambdaExecute'
 )
-response5= client.attach_role_policy(
+response5 = client.attach_role_policy(
     RoleName=role_name,
     PolicyArn='arn:aws:iam::aws:policy/service-role/AWSLambdaRole'
 )

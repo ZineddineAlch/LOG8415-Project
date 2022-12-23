@@ -1,5 +1,6 @@
 import requests
 
+# importing API url from the stored file
 with open('api_url_store.txt') as f:
     URL = f.readlines()
 
@@ -10,6 +11,7 @@ data = [{"data":"17.99,10.38,122.8,1001,0.1184,0.07697999,0.0475100,0.033839,0.1
         {"data":"50,12.44,60.34,273.9,0.1024,0.06492,0.02956,10,0.1815,0.06905,0.2773,0.9768,1.909,15.7,0.009606,0.01432,0.01985,0.01421,0.02027,0.002968,10.23,15.66,65.13,314.9,0.1324,0.1148,0.08867,0.06227,0.245,0.07773"
         }]
 
+# Launch request for every features in data variable.
 for info in data:
     response = requests.post(url=URL[0], json=info)
     print(response.text)
