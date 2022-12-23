@@ -3,16 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="43ecc2d3-4cc9-4d4a-8f65-e2b917f404c4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API_gateway.py" beforeDir="false" afterPath="$PROJECT_DIR$/API_gateway.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IAM_lambda.py" beforeDir="false" afterPath="$PROJECT_DIR$/IAM_lambda.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IAM_sagemaker.py" beforeDir="false" afterPath="$PROJECT_DIR$/IAM_sagemaker.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Request.py" beforeDir="false" afterPath="$PROJECT_DIR$/Request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_S3_bucket.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_S3_bucket.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_zip.py" beforeDir="false" afterPath="$PROJECT_DIR$/file_zip.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lambda_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/lambda_function.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sagemaker_instance.py" beforeDir="false" afterPath="$PROJECT_DIR$/sagemaker_instance.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -51,6 +51,5 @@ response6 = client.attach_role_policy(
     RoleName=role_name,
     PolicyArn='arn:aws:iam::aws:policy/AmazonAPIGatewayInvokeFullAccess'
 )
-
 print('Role policy added...')
-time.sleep(5)
+time.sleep(20)
