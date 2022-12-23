@@ -7,9 +7,7 @@ instance_name = 'project'
 
 client = boto3.client('iam')
 response = client.get_role(
-    RoleName='roleprojectsagemaker'
-)
-
+    RoleName='roleprojectsagemaker')
 def get_vpc_id_and_subnet_id(rn):
 
     """
@@ -24,8 +22,6 @@ def get_vpc_id_and_subnet_id(rn):
     )
     subnet_id = response['Subnets'][0]['SubnetId']
     return vpc_id, subnet_id
-
-
 def create_sg(vpcID,rn):
     """
     This function creates a new security group for the VPC.
@@ -55,7 +51,6 @@ def create_sg(vpcID,rn):
 
         ])
     return security_group_id
-
 def create_notebook_instance(instance_name,instance_type,subnet_id,sg, rn,role_arn):
     """
     This function creates sagemaker instance.
@@ -65,7 +60,6 @@ def create_notebook_instance(instance_name,instance_type,subnet_id,sg, rn,role_a
     subnet_id : is the subnet where you instances will reside.
     rn: the region name
     """
-
     sm_client = boto3.client("sagemaker", region_name=rn)
     sm_client.create_notebook_instance(
         NotebookInstanceName=instance_name,
@@ -81,9 +75,7 @@ def create_notebook_instance(instance_name,instance_type,subnet_id,sg, rn,role_a
                 'Value': '12345'
             },
         ]
-
     )
-
 def wait_until_running(instance_name,rn):
     """
     This function waits for the notebook instance to become available.

@@ -1,6 +1,7 @@
 import json
 import boto3
 import time
+
 role_name = 'roleprojectlambda'
 
 assume_policy = json.dumps(

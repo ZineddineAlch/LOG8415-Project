@@ -6,11 +6,18 @@ logger = logging.getLogger(__name__)
 client = boto3.client('apigateway')
 
 def get_account_id():
+    """
+    Function to get AWS account id
+    """
     client = boto3.client("sts")
     return client.get_caller_identity()["Account"]
 
 
 def create_rest_api(api_name):
+    """
+    Function to create REST API
+    api_name: name of the API
+    """
     client = boto3.client('apigateway')
     response = client.create_rest_api(
         name=api_name,
@@ -63,7 +70,6 @@ def create_put_integration(api_id,D):
         credentials="arn:aws:iam::{}:role/roleprojectlambda".format(account_id)
 
     )
-
 def create_put_integration_response(api_id,D):
     client = boto3.client('apigateway')
 
@@ -117,10 +123,8 @@ with open('api_id_store.txt', 'w') as f:
 f.close()
 
 D = create_resource(api_id)
-
 create_put_method(api_id,D)
 create_put_method_response(api_id,D)
-
 create_put_integration(api_id,D)
 create_put_integration_response(api_id,D)
 time.sleep(10)

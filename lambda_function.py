@@ -10,7 +10,6 @@ with open('lambda.zip', 'rb') as f:
 
 role = iam_client.get_role(RoleName=role_name)
 
-
 response = lambda_client.create_function(
     FunctionName='lambdafunctprojet1',
     Runtime='python3.9',

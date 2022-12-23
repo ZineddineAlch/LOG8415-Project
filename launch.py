@@ -10,5 +10,5 @@ os.system("API_gateway.py")
 os.system("Request.py")
 time.sleep(10)
 os.system("menu.py")
-time.sleep(30)
+time.sleep(20)
 
